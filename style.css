@@ -924,6 +924,12 @@ a:hover { color: var(--color-primary-dark); }
   margin-bottom: 0.8rem;
 }
 
+/* Variante para eventos ya celebrados */
+.initiative-tag--past {
+  background-color: #F0F0F0;
+  color: #888;
+}
+
 .initiative-title {
   font-family: var(--font-display);
   font-size: clamp(1.2rem, 3vw, 1.55rem);
@@ -935,7 +941,54 @@ a:hover { color: var(--color-primary-dark); }
 
 .initiative-desc {
   font-size: 0.9rem;
-  color: var(--color-text-light);
-  line-height: 1.7;
-  font-style: italic;
+  color: var(--color-text-mid);
+  line-height: 1.75;
 }
+
+/* Lista de detalles (fecha, precio, etc.) dentro de una iniciativa */
+.initiative-details {
+  margin: 1.1rem 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.initiative-detail-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  color: var(--color-text-mid);
+  line-height: 1.45;
+}
+
+.initiative-detail-item .detail-icon {
+  flex-shrink: 0;
+  font-size: 0.95rem;
+}
+
+/* Botón CTA dentro de la tarjeta de iniciativa */
+.initiative-cta {
+  display: inline-block;
+  margin-top: 1.3rem;
+  padding: 0.65rem 1.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 3px 10px rgba(199, 60, 110, 0.25);
+}
+
+.initiative-cta:hover {
+  background-color: var(--color-primary-dark);
+  color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(199, 60, 110, 0.35);
+}
+
+/* Las dos tarjetas se alinean al inicio para que no estiren si tienen alturas distintas */
+.initiatives-grid { align-items: start; }
