@@ -3,9 +3,375 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Programa de actos de las Fiestas de Rillo de Gallo. Consulta los horarios y actividades de las fiestas patronales." />
+  <meta name="description" content="Programa completo de las Fiestas de Rillo de Gallo 2025. Consulta horarios y actividades del 19 al 24 de agosto." />
   <title>Programa de Fiestas · Rillo de Gallo</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ============================================================
+       PROGRAMA DE FIESTAS — estilos específicos
+       ============================================================ */
+
+    /* ---- Intro de fecha ---- */
+    .program-dates-bar {
+      text-align: center;
+      padding: 2rem 0 0;
+    }
+    .program-dates-bar__label {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+    }
+    .program-dates-bar__range {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 5vw, 3rem);
+      font-weight: 900;
+      color: var(--color-text);
+      line-height: 1.1;
+      margin-top: 0.2rem;
+    }
+    .program-dates-bar__year {
+      color: var(--color-primary);
+    }
+    .program-dates-bar__note {
+      display: inline-block;
+      margin-top: 0.75rem;
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+    }
+
+    /* ---- Novena banner ---- */
+    .novena-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      background: var(--color-bg-soft);
+      border: 1px solid var(--color-border);
+      border-left: 4px solid var(--color-primary);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin: 2rem 0;
+      font-size: 0.88rem;
+      color: var(--color-text-mid);
+      line-height: 1.55;
+    }
+    .novena-banner__icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    /* ---- Live section ---- */
+    .live-section {
+      background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+      border-radius: calc(var(--radius) * 2);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    .live-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem;
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .live-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #ff6b6b;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: blink 1.4s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.65); }
+    }
+    .live-clock {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      opacity: 0.85;
+    }
+    .live-now-label {
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.72;
+      margin-bottom: 0.35rem;
+    }
+    .live-now-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 4vw, 1.6rem);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .live-now-time {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 0.25rem;
+    }
+    .live-free-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+    .live-free-text {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      margin-top: 0.3rem;
+    }
+    .live-next-block {
+      border-top: 1px solid rgba(255,255,255,0.22);
+      margin-top: 1.1rem;
+      padding-top: 1rem;
+    }
+    .live-next-label {
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.72;
+      margin-bottom: 0.6rem;
+    }
+    .live-next-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.45rem;
+      font-size: 0.875rem;
+    }
+    .live-next-time {
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      min-width: 2.8rem;
+      opacity: 0.75;
+      flex-shrink: 0;
+    }
+
+    /* ---- Day tabs ---- */
+    .day-tabs-wrapper {
+      position: sticky;
+      top: 68px;
+      z-index: 100;
+      background: var(--color-bg);
+      border-bottom: 2px solid var(--color-border);
+      margin: 0 0 2rem;
+    }
+    .day-tabs-inner {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .day-tabs-inner::-webkit-scrollbar { display: none; }
+    .day-tab {
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      padding: 0.85rem 1.1rem;
+      font-family: var(--font-heading);
+      color: var(--color-text-light);
+      transition: color var(--transition), border-color var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.1rem;
+      line-height: 1.2;
+    }
+    .day-tab__num {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .day-tab__name {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .day-tab:hover { color: var(--color-primary); }
+    .day-tab[aria-selected="true"] {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+    .day-tab.is-today { color: var(--color-primary-dark); }
+
+    /* ---- Schedule panels ---- */
+    .schedule-panel { display: none; }
+    .schedule-panel.is-active { display: block; }
+
+    .schedule-day-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem 1rem;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+    .schedule-day-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 6vw, 2.75rem);
+      font-weight: 900;
+      color: var(--color-text);
+      line-height: 1;
+    }
+    .schedule-day-date {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      color: var(--color-text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Timeline */
+    .schedule-list {
+      list-style: none;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    .schedule-list::before {
+      content: '';
+      position: absolute;
+      left: 3.6rem;
+      top: 0.75rem;
+      bottom: 0.75rem;
+      width: 2px;
+      background: var(--color-border);
+      border-radius: 2px;
+    }
+
+    .schedule-item {
+      display: grid;
+      grid-template-columns: 3.5rem 1.25rem 1fr;
+      column-gap: 0.8rem;
+      align-items: start;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .schedule-item__time {
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-text-mid);
+      text-align: right;
+      line-height: 1.4;
+      padding-top: 0.2rem;
+    }
+    .schedule-item__time-end {
+      display: block;
+      font-size: 0.72rem;
+      opacity: 0.7;
+    }
+    .schedule-item__dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-border);
+      border: 2px solid var(--color-bg);
+      margin-top: 0.3rem;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+      transition: box-shadow 0.3s, background 0.3s;
+    }
+    .schedule-item__title {
+      font-size: 0.93rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.4;
+    }
+    .schedule-item__sub {
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      margin-top: 0.15rem;
+    }
+
+    /* Live states (applied by JS during festival) */
+    .schedule-item.is-past .schedule-item__dot  { background: var(--color-border) !important; }
+    .schedule-item.is-past .schedule-item__title,
+    .schedule-item.is-past .schedule-item__time  { opacity: 0.38; }
+
+    .schedule-item.is-now .schedule-item__dot {
+      background: var(--color-primary) !important;
+      border-color: var(--color-primary-light);
+      width: 16px;
+      height: 16px;
+      margin-top: 0.15rem;
+      animation: pulse-now 2s ease-in-out infinite;
+    }
+    .schedule-item.is-now .schedule-item__title { color: var(--color-primary-dark); }
+    .schedule-item.is-now .schedule-item__time  { color: var(--color-primary); }
+    @keyframes pulse-now {
+      0%, 100% { box-shadow: 0 0 0 3px var(--color-primary-light); }
+      50%       { box-shadow: 0 0 0 7px var(--color-accent); }
+    }
+
+    /* Midnight separator */
+    .schedule-midnight {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1rem 0 1.25rem;
+      color: var(--color-text-light);
+      font-size: 0.72rem;
+      font-family: var(--font-heading);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      list-style: none;
+    }
+    .schedule-midnight::before,
+    .schedule-midnight::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+    }
+
+    /* ---- Reference note ---- */
+    .program-ref-note {
+      margin-top: 3rem;
+      padding: 1rem 1.25rem;
+      background: var(--color-bg-soft);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      font-size: 0.82rem;
+      color: var(--color-text-light);
+      text-align: center;
+      line-height: 1.6;
+    }
+    .program-ref-note strong { color: var(--color-text-mid); }
+
+    @media (max-width: 400px) {
+      .schedule-list::before { left: 3.1rem; }
+      .schedule-item { grid-template-columns: 3rem 1.25rem 1fr; }
+      .schedule-item__time { font-size: 0.75rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -47,7 +413,7 @@
 
 
   <!-- ========================================================
-       HERO DE SECCIÓN
+       HERO
        ======================================================== -->
   <section class="section-hero" aria-labelledby="page-title">
     <p class="section-hero-eyebrow">Fiestas de Rillo de Gallo</p>
@@ -57,31 +423,504 @@
 
 
   <!-- ========================================================
-       CONTENIDO PLACEHOLDER
+       MAIN
        ======================================================== -->
-  <main class="placeholder-section" id="main-content" aria-labelledby="placeholder-title">
+  <main id="main-content">
+
     <div class="container">
-      <div class="placeholder-box">
 
-        <span class="placeholder-icon" aria-hidden="true">📅</span>
+      <!-- Dates bar -->
+      <div class="program-dates-bar">
+        <p class="program-dates-bar__label">Fiestas Patronales</p>
+        <p class="program-dates-bar__range">19 – 24 de agosto <span class="program-dates-bar__year">2025</span></p>
+        <span class="program-dates-bar__note">2025</span>
+      </div>
 
-        <h2 id="placeholder-title">¡Próximamente!</h2>
+      <!-- Novena -->
+      <div class="novena-banner" role="note" aria-label="Novena">
+        <span class="novena-banner__icon" aria-hidden="true">🙏</span>
+        <span>Del <strong>13 al 21 de agosto</strong>, cada día a las <strong>19:00&nbsp;h.</strong>, novena en honor a nuestra Virgen de la Carrasca.</span>
+      </div>
 
-        <p>
-          El programa de actos de las fiestas de este año estará disponible
-          muy pronto. La comisión está ultimando los detalles para preparar
-          unos días inolvidables.
-        </p>
+      <!-- Live section (hidden outside festival) -->
+      <section
+        class="live-section"
+        id="live-section"
+        aria-live="polite"
+        aria-atomic="true"
+        aria-label="Qué está pasando ahora en las fiestas"
+        hidden
+      >
+        <div class="live-header">
+          <span class="live-badge">En directo</span>
+          <span class="live-clock" id="live-clock"></span>
+        </div>
+        <div id="live-body"></div>
+      </section>
 
-        <p>
-          Sigue nuestra cuenta de Instagram para enterarte de todas las
-          novedades en cuanto se publiquen.
-        </p>
+    </div><!-- /.container -->
 
-        <a href="index.html" class="btn-back">← Volver al inicio</a>
 
+    <!-- Day tabs — sticky below site header -->
+    <div class="day-tabs-wrapper" role="navigation" aria-label="Seleccionar día">
+      <div class="container">
+        <div class="day-tabs-inner" role="tablist" aria-label="Días de las fiestas">
+
+          <button class="day-tab" role="tab" aria-selected="true"  aria-controls="panel-mar19" id="tab-mar19">
+            <span class="day-tab__num">19</span>
+            <span class="day-tab__name">Martes</span>
+          </button>
+          <button class="day-tab" role="tab" aria-selected="false" aria-controls="panel-mie20" id="tab-mie20">
+            <span class="day-tab__num">20</span>
+            <span class="day-tab__name">Miércoles</span>
+          </button>
+          <button class="day-tab" role="tab" aria-selected="false" aria-controls="panel-jue21" id="tab-jue21">
+            <span class="day-tab__num">21</span>
+            <span class="day-tab__name">Jueves</span>
+          </button>
+          <button class="day-tab" role="tab" aria-selected="false" aria-controls="panel-vie22" id="tab-vie22">
+            <span class="day-tab__num">22</span>
+            <span class="day-tab__name">Viernes</span>
+          </button>
+          <button class="day-tab" role="tab" aria-selected="false" aria-controls="panel-sab23" id="tab-sab23">
+            <span class="day-tab__num">23</span>
+            <span class="day-tab__name">Sábado</span>
+          </button>
+          <button class="day-tab" role="tab" aria-selected="false" aria-controls="panel-dom24" id="tab-dom24">
+            <span class="day-tab__num">24</span>
+            <span class="day-tab__name">Domingo</span>
+          </button>
+
+        </div>
       </div>
     </div>
+
+
+    <div class="container">
+
+      <!-- ====================================================
+           MARTES 19
+           ==================================================== -->
+      <section
+        class="schedule-panel is-active"
+        id="panel-mar19"
+        role="tabpanel"
+        aria-labelledby="tab-mar19"
+        data-date="2025-08-19"
+      >
+        <div class="schedule-day-header">
+          <h2 class="schedule-day-name">Martes 19</h2>
+          <span class="schedule-day-date">19 de agosto de 2025</span>
+        </div>
+
+        <ul class="schedule-list">
+          <li class="schedule-item" data-time="23:00">
+            <span class="schedule-item__time">23:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Proyección bajo las estrellas de Miguel Ángel Langa</p>
+              <p class="schedule-item__sub">🎬 Plaza del pueblo</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+
+      <!-- ====================================================
+           MIÉRCOLES 20
+           ==================================================== -->
+      <section
+        class="schedule-panel"
+        id="panel-mie20"
+        role="tabpanel"
+        aria-labelledby="tab-mie20"
+        data-date="2025-08-20"
+      >
+        <div class="schedule-day-header">
+          <h2 class="schedule-day-name">Miércoles 20</h2>
+          <span class="schedule-day-date">20 de agosto de 2025</span>
+        </div>
+
+        <ul class="schedule-list">
+          <li class="schedule-item" data-time="09:00">
+            <span class="schedule-item__time">09:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Torneo de pádel</p>
+              <p class="schedule-item__sub">🏓 Pistas de Molina</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="11:00">
+            <span class="schedule-item__time">11:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Actividad infantil «Paseo por el pasado»</p>
+              <p class="schedule-item__sub">🚲 Salida en bicicleta desde la plaza</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="19:30">
+            <span class="schedule-item__time">19:30</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Got talent rillano</p>
+              <p class="schedule-item__sub">🌟 ¡Demuestra tu talento!</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="21:30">
+            <span class="schedule-item__time">21:30</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Cena para niñ@s en la plaza</p>
+              <p class="schedule-item__sub">🍽️ Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="21:30">
+            <span class="schedule-item__time">21:30</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Cine para tod@s en la plaza</p>
+              <p class="schedule-item__sub">🎥 Proyección al aire libre</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+
+      <!-- ====================================================
+           JUEVES 21
+           ==================================================== -->
+      <section
+        class="schedule-panel"
+        id="panel-jue21"
+        role="tabpanel"
+        aria-labelledby="tab-jue21"
+        data-date="2025-08-21"
+      >
+        <div class="schedule-day-header">
+          <h2 class="schedule-day-name">Jueves 21</h2>
+          <span class="schedule-day-date">21 de agosto de 2025</span>
+        </div>
+
+        <ul class="schedule-list">
+          <li class="schedule-item" data-time="11:00">
+            <span class="schedule-item__time">11:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Salida en romería a la Fuente del Cura</p>
+              <p class="schedule-item__sub">⛪ Romería</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="12:00">
+            <span class="schedule-item__time">12:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Misa en la naturaleza en honor a la Virgen de la Carrasca</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="13:00">
+            <span class="schedule-item__time">13:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Aperitivo en el Borbollón</p>
+              <p class="schedule-item__sub">🥂 Fuente del Cura</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="14:30">
+            <span class="schedule-item__time">14:30</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Comida en la Fuente del Cura</p>
+              <p class="schedule-item__sub">🍽️ Fuente del Cura</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="17:00">
+            <span class="schedule-item__time">17:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Inicio de las competiciones: naipes, dominó y corn-hole</p>
+              <p class="schedule-item__sub">🃏 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="18:30">
+            <span class="schedule-item__time">18:30</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Apertura oficial de peñas amenizada por charanga</p>
+              <p class="schedule-item__sub">🎺 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="20:00">
+            <span class="schedule-item__time">20:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Baile con la charanga para nuestros/as mayores</p>
+              <p class="schedule-item__sub">💃 Plaza del pueblo</p>
+            </div>
+          </li>
+
+          <li class="schedule-midnight" aria-hidden="true">🌙 Madrugada</li>
+
+          <li class="schedule-item" data-time="00:00" data-late-night="true">
+            <span class="schedule-item__time">00:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Presentación de la Reina y el Rey de las Fiestas</p>
+              <p class="schedule-item__sub">👑 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="00:30" data-time-end="05:00" data-late-night="true">
+            <span class="schedule-item__time">00:30<span class="schedule-item__time-end">05:00</span></span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Verbena con la orquesta La Ruta</p>
+              <p class="schedule-item__sub">🎶 Plaza del pueblo</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+
+      <!-- ====================================================
+           VIERNES 22
+           ==================================================== -->
+      <section
+        class="schedule-panel"
+        id="panel-vie22"
+        role="tabpanel"
+        aria-labelledby="tab-vie22"
+        data-date="2025-08-22"
+      >
+        <div class="schedule-day-header">
+          <h2 class="schedule-day-name">Viernes 22</h2>
+          <span class="schedule-day-date">22 de agosto de 2025</span>
+        </div>
+
+        <ul class="schedule-list">
+          <li class="schedule-item" data-time="12:00">
+            <span class="schedule-item__time">12:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Misa mayor</p>
+              <p class="schedule-item__sub">⛪ Iglesia del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="13:00">
+            <span class="schedule-item__time">13:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Procesión en honor a la Virgen de la Carrasca</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="13:30">
+            <span class="schedule-item__time">13:30</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Aperitivo en la plaza amenizado por dulzainas</p>
+              <p class="schedule-item__sub">🎵 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="18:30">
+            <span class="schedule-item__time">18:30</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Disfraces infantiles</p>
+              <p class="schedule-item__sub">🎭 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="19:30">
+            <span class="schedule-item__time">19:30</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Gymkanas infantiles</p>
+              <p class="schedule-item__sub">🏃 Plaza del pueblo</p>
+            </div>
+          </li>
+
+          <li class="schedule-midnight" aria-hidden="true">🌙 Madrugada</li>
+
+          <li class="schedule-item" data-time="00:00" data-late-night="true">
+            <span class="schedule-item__time">00:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Tradicional baile del farolillo</p>
+              <p class="schedule-item__sub">🏮 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="00:30" data-time-end="05:00" data-late-night="true">
+            <span class="schedule-item__time">00:30<span class="schedule-item__time-end">05:00</span></span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Verbena con la orquesta Music Show</p>
+              <p class="schedule-item__sub">🎶 Plaza del pueblo</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+
+      <!-- ====================================================
+           SÁBADO 23
+           ==================================================== -->
+      <section
+        class="schedule-panel"
+        id="panel-sab23"
+        role="tabpanel"
+        aria-labelledby="tab-sab23"
+        data-date="2025-08-23"
+      >
+        <div class="schedule-day-header">
+          <h2 class="schedule-day-name">Sábado 23</h2>
+          <span class="schedule-day-date">23 de agosto de 2025</span>
+        </div>
+
+        <ul class="schedule-list">
+          <li class="schedule-item" data-time="11:00" data-time-end="14:00">
+            <span class="schedule-item__time">11:00<span class="schedule-item__time-end">14:00</span></span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Parque infantil</p>
+              <p class="schedule-item__sub">🎠 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="12:00">
+            <span class="schedule-item__time">12:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Misa por nuestros/as difuntos</p>
+              <p class="schedule-item__sub">⛪ Iglesia del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="16:00" data-time-end="18:00">
+            <span class="schedule-item__time">16:00<span class="schedule-item__time-end">18:00</span></span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Parque infantil (tarde)</p>
+              <p class="schedule-item__sub">🎠 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="18:00">
+            <span class="schedule-item__time">18:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Continuación de las competiciones</p>
+              <p class="schedule-item__sub">🃏 Naipes, dominó y corn-hole</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="18:00">
+            <span class="schedule-item__time">18:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Sesión de ejercicios de movilidad</p>
+              <p class="schedule-item__sub">🤸 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="19:30" data-time-end="21:30">
+            <span class="schedule-item__time">19:30<span class="schedule-item__time-end">21:30</span></span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Baile en la plaza para nuestros/as mayores</p>
+              <p class="schedule-item__sub">💃 Con Dúo musical</p>
+            </div>
+          </li>
+
+          <li class="schedule-midnight" aria-hidden="true">🌙 Madrugada</li>
+
+          <li class="schedule-item" data-time="00:00" data-late-night="true">
+            <span class="schedule-item__time">00:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Disfraces de los/as mayores</p>
+              <p class="schedule-item__sub">🎭 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="00:30" data-time-end="02:30" data-late-night="true">
+            <span class="schedule-item__time">00:30<span class="schedule-item__time-end">02:30</span></span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Verbena con la orquesta Caramelo</p>
+              <p class="schedule-item__sub">🎶 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="02:30" data-time-end="04:30" data-late-night="true">
+            <span class="schedule-item__time">02:30<span class="schedule-item__time-end">04:30</span></span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Disco móvil a cargo de los/as DJs locales</p>
+              <p class="schedule-item__sub">🎧 Plaza del pueblo</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+
+      <!-- ====================================================
+           DOMINGO 24
+           ==================================================== -->
+      <section
+        class="schedule-panel"
+        id="panel-dom24"
+        role="tabpanel"
+        aria-labelledby="tab-dom24"
+        data-date="2025-08-24"
+      >
+        <div class="schedule-day-header">
+          <h2 class="schedule-day-name">Domingo 24</h2>
+          <span class="schedule-day-date">24 de agosto de 2025</span>
+        </div>
+
+        <ul class="schedule-list">
+          <li class="schedule-item" data-time="14:30">
+            <span class="schedule-item__time">14:30</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Tradicional paella popular en la plaza</p>
+              <p class="schedule-item__sub">🥘 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="18:00">
+            <span class="schedule-item__time">18:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Misa en la iglesia del pueblo</p>
+              <p class="schedule-item__sub">⛪ Iglesia del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="19:30">
+            <span class="schedule-item__time">19:30</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Chocolatada en la plaza</p>
+              <p class="schedule-item__sub">🍫 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="20:00">
+            <span class="schedule-item__time">20:00</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Teat-Rillo de guiñol para tod@s</p>
+              <p class="schedule-item__sub">🎪 Plaza del pueblo</p>
+            </div>
+          </li>
+          <li class="schedule-item" data-time="21:30">
+            <span class="schedule-item__time">21:30</span>
+            <span class="schedule-item__dot" aria-hidden="true"></span>
+            <div class="schedule-item__content">
+              <p class="schedule-item__title">Entrega de premios y trofeos</p>
+              <p class="schedule-item__sub">🏆 Plaza del pueblo</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+
+      <!-- Reference note -->
+      <p class="program-ref-note">
+        <strong>⚠️ Programa de referencia 2025.</strong><br>
+        El programa definitivo de las fiestas de 2026 se publicará próximamente en esta página y en nuestro Instagram.
+      </p>
+
+    </div><!-- /.container -->
+
   </main>
 
 
@@ -107,7 +946,7 @@
       <hr class="footer-divider" aria-hidden="true" />
 
       <p class="footer-copy">
-        &copy; <span id="footer-year">2026</span> Comisión de Fiestas de Rillo de Gallo.
+        &copy; <span id="footer-year">2025</span> Comisión de Fiestas de Rillo de Gallo.
         Hecho con cariño para el pueblo.
       </p>
 
@@ -117,8 +956,178 @@
 
   <script src="script.js"></script>
   <script>
-    var footerYear = document.getElementById('footer-year');
-    if (footerYear) footerYear.textContent = new Date().getFullYear();
+    (function () {
+      'use strict';
+
+      /* ─── Footer year ─── */
+      var fy = document.getElementById('footer-year');
+      if (fy) fy.textContent = new Date().getFullYear();
+
+      /* ─── Tab switching ─── */
+      var tabs   = Array.from(document.querySelectorAll('.day-tab'));
+      var panels = Array.from(document.querySelectorAll('.schedule-panel'));
+
+      function activateTab(tab) {
+        tabs.forEach(function (t) {
+          t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+        });
+        var targetId = tab.getAttribute('aria-controls');
+        panels.forEach(function (p) {
+          p.classList.toggle('is-active', p.id === targetId);
+        });
+        tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () { activateTab(tab); });
+        tab.addEventListener('keydown', function (e) {
+          var idx = tabs.indexOf(tab);
+          if (e.key === 'ArrowRight') { e.preventDefault(); activateTab(tabs[(idx + 1) % tabs.length]); }
+          if (e.key === 'ArrowLeft')  { e.preventDefault(); activateTab(tabs[(idx - 1 + tabs.length) % tabs.length]); }
+        });
+      });
+
+      /* ─── Live detection ─── */
+
+      /* Convert "HH:MM" to minutes since midnight */
+      function parseMins(str) {
+        var p = str.split(':');
+        return +p[0] * 60 + +p[1];
+      }
+
+      /* Convert to "festival minutes": 08:00 → 480 (base), 00:00 → 1440, 05:00 → 1740 */
+      function festMins(str) {
+        var m = parseMins(str);
+        return m < 8 * 60 ? m + 1440 : m;
+      }
+
+      /* Current festival minutes from "now" */
+      function nowFestMins(now) {
+        var m = now.getHours() * 60 + now.getMinutes();
+        return m < 8 * 60 ? m + 1440 : m;
+      }
+
+      /* Date string YYYY-MM-DD for the festival day of "now"
+         (times before 08:00 belong to the previous festival day) */
+      function festDay(now) {
+        var d = new Date(now);
+        if (d.getHours() < 8) d.setDate(d.getDate() - 1);
+        return d.toISOString().slice(0, 10);
+      }
+
+      function pad2(n) { return String(n).padStart(2, '0'); }
+
+      function updateLive() {
+        var now    = new Date();
+        var dayStr = festDay(now);
+        var curM   = nowFestMins(now);
+
+        /* Find the panel for today */
+        var panel  = document.querySelector('.schedule-panel[data-date="' + dayStr + '"]');
+        var liveEl = document.getElementById('live-section');
+
+        if (!panel) {
+          liveEl.hidden = true;
+          return;
+        }
+
+        liveEl.hidden = false;
+
+        /* Update clock */
+        document.getElementById('live-clock').textContent =
+          pad2(now.getHours()) + ':' + pad2(now.getMinutes());
+
+        /* Collect events from this panel */
+        var items  = Array.from(panel.querySelectorAll('.schedule-item[data-time]'));
+        var events = items.map(function (el) {
+          return {
+            el:        el,
+            start:     festMins(el.dataset.time),
+            end:       el.dataset.timeEnd ? festMins(el.dataset.timeEnd) : null,
+            title:     el.querySelector('.schedule-item__title').textContent.trim(),
+            time:      el.dataset.time,
+            timeEnd:   el.dataset.timeEnd || null
+          };
+        });
+
+        /* Calculate end for events without explicit end */
+        events.forEach(function (ev, i) {
+          if (ev.end === null) {
+            ev.end = (i + 1 < events.length) ? events[i + 1].start : ev.start + 90;
+          }
+        });
+
+        /* Find "now" event and update states */
+        var nowIdx = -1;
+        events.forEach(function (ev, i) {
+          ev.el.classList.remove('is-now', 'is-past');
+          if (curM >= ev.start && curM < ev.end) {
+            ev.el.classList.add('is-now');
+            nowIdx = i;
+          } else if (curM >= ev.end) {
+            ev.el.classList.add('is-past');
+          }
+        });
+
+        /* Build live body */
+        var liveBody = document.getElementById('live-body');
+        var nowHtml  = '';
+        var nextHtml = '';
+
+        if (nowIdx >= 0) {
+          var e = events[nowIdx];
+          var timeLabel = e.time + (e.timeEnd ? ' – ' + e.timeEnd : '');
+          nowHtml =
+            '<p class="live-now-label">Ahora mismo</p>' +
+            '<p class="live-now-title">' + e.title + '</p>' +
+            '<p class="live-now-time">' + timeLabel + '</p>';
+        } else {
+          nowHtml =
+            '<div class="live-free-title">✨ Disfruta de las fiestas</div>' +
+            '<p class="live-free-text">Ahora no hay ningún acto programado. ¡Aprovecha para descansar!</p>';
+        }
+
+        /* Upcoming events: up to 3 after current */
+        var upcoming = events.filter(function (ev, i) {
+          return i > nowIdx && ev.start > curM;
+        }).slice(0, 3);
+
+        if (upcoming.length > 0) {
+          var rows = upcoming.map(function (ev) {
+            return '<div class="live-next-item">' +
+              '<span class="live-next-time">' + ev.time + '</span>' +
+              '<span>' + ev.title + '</span>' +
+              '</div>';
+          }).join('');
+          nextHtml =
+            '<div class="live-next-block">' +
+            '<p class="live-next-label">A continuación</p>' +
+            rows +
+            '</div>';
+        }
+
+        liveBody.innerHTML = nowHtml + nextHtml;
+
+        /* Also activate the today tab */
+        var todayTab = document.querySelector('button[aria-controls="' + panel.id + '"]');
+        if (todayTab) {
+          todayTab.classList.add('is-today');
+          activateTab(todayTab);
+          /* Scroll to current event */
+          var nowEl = panel.querySelector('.schedule-item.is-now');
+          if (nowEl) {
+            setTimeout(function () {
+              nowEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 400);
+          }
+        }
+      }
+
+      /* Run immediately, then every 60 seconds */
+      updateLive();
+      setInterval(updateLive, 60000);
+
+    }());
   </script>
 
 </body>
